@@ -1,1 +1,38 @@
-<p>seller works!</p>
+<div class="signup-container">
+  <h2>Create Account</h2>
+  <form [formGroup]="form">
+    <input
+      type="text"
+      placeholder="Full Name"
+      required
+      formControlName="name"
+    />
+    <input
+      type="email"
+      placeholder="Email Address"
+      required
+      formControlName="email"
+    />
+
+    <div class="password-group" formGroupName="passwords">
+      <input
+        type="password"
+        placeholder="Password"
+        required
+        formControlName="password"
+      />
+      <input
+        type="password"
+        placeholder="Confirm Password"
+        required
+        formControlName="confirmPassword"
+      />
+    </div>
+
+    <button type="reset" (click)="onSubmit()">Sign Up</button>
+    <p class="login-link">
+      Already have an account?
+      <a routerLink="/login" routerLinkActive="router-link-active">Login</a>
+    </p>
+  </form>
+</div>

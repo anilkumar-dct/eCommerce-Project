@@ -1,0 +1,78 @@
+.signup-container {
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 15px rgba(128, 0, 128, 0.12);
+  font-family: "Segoe UI", sans-serif;
+}
+
+.signup-container h2 {
+  color: #800080;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+input {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline-color: #800080;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.password-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.password-group input {
+  flex: 1 1 48%;
+}
+
+button {
+  background-color: #800080;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #5e005e;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: #800080;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .password-group input {
+    flex-basis: 100%;
+  }
+}
