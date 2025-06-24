@@ -82,8 +82,8 @@ export class Seller implements OnInit {
     this.httpService.createUser(this.sellerData).subscribe({
       next: (response) => {
         localStorage.setItem('seller', JSON.stringify(response.body));
-        this.authService.login(); // ✅ sets logged-in state
-        this.router.navigate(['seller/home']);
+        this.authService.login(); // triggers auto-logout timer
+        this.router.navigate(['seller/home']); // ✅ only here
       },
       error: (err) => {
         console.error('Signup error:', err);
@@ -92,11 +92,13 @@ export class Seller implements OnInit {
     this.router.navigate(['seller/home']);
   }
   reloadSeller() {
-    if (localStorage.getItem('seller')) {
-      this.authService.isSellerLoggedIn.next(true);
+    const seller = localStorage.getItem('seller');
+    if (seller) {
+      this.authService.login(); // this starts the 1-minute timeout again
       this.router.navigate(['seller/home']);
     }
   }
+
   ngOnInit(): void {
     this.reloadSeller();
   }

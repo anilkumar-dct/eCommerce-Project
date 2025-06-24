@@ -4,7 +4,7 @@ import { userAuthGuardGuard } from './user-auth-guard-guard';
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./body/home/home').then((c) => c.Home),
+    loadComponent: () => import('./body/login/login').then((c) => c.Login),
   },
   {
     path: 'home',

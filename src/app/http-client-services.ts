@@ -17,4 +17,9 @@ export class HttpClientServices {
       })
     );
   }
+  loginUser(user: any): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${this.baseUrl}/sellers?email=${user.email}&password=${user.password}`
+    );
+  }
 }
