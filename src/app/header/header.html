@@ -1,15 +1,25 @@
 <header class="header">
-  <h1 class="logo">E-Comm</h1>
-
+  <a routerLink="/home" style="text-decoration: none">
+    <h1 class="logo">E-Comm</h1>
+  </a>
+  @if(menuType==='default'){
   <div class="search-container">
     <input type="text" placeholder="Search Products" />
     <button>Search</button>
   </div>
-
+  } @if(menuType==='default'){
   <nav class="nav-links">
     <a routerLink="/seller">Seller</a>
     <a routerLink="/home">Home</a>
     <a routerLink="/login">Login</a>
     <a routerLink="/cart">Cart(0)</a>
   </nav>
+  }@else {
+  <nav class="nav-links">
+    <a routerLink="/seller">Add Product</a>
+    <a routerLink="/home">List</a>
+    <a routerLink="/login">Loggout</a>
+    <a routerLink="/cart">Seller Name</a>
+  </nav>
+  }
 </header>
