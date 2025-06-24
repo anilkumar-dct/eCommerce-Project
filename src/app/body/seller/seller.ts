@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -9,6 +9,7 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { SignUpUserData } from '../../data';
 import { HttpClientServices } from '../../http-client-services';
+import { AuthService } from '../../auth-service';
 
 function confirmPassword(control: AbstractControl) {
   const password = control.get('password');
@@ -24,13 +25,13 @@ function confirmPassword(control: AbstractControl) {
   templateUrl: './seller.html',
   styleUrl: './seller.css',
 })
-export class Seller {
+export class Seller implements OnInit {
   sellerData: SignUpUserData = {
     name: '',
     email: '',
     password: '',
   };
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   private httpService = inject(HttpClientServices);
   form = new FormGroup({
@@ -78,7 +79,25 @@ export class Seller {
     this.sellerData.name = this.form.value.name!;
     this.sellerData.email = this.form.value.email!;
     this.sellerData.password = this.form.controls['passwords'].value.password!;
-    this.httpService.createUser(this.sellerData).subscribe();
+    this.httpService.createUser(this.sellerData).subscribe({
+      next: (response) => {
+        localStorage.setItem('seller', JSON.stringify(response.body));
+        this.authService.login(); // ✅ sets logged-in state
+        this.router.navigate(['seller/home']);
+      },
+      error: (err) => {
+        console.error('Signup error:', err);
+      },
+    });
     this.router.navigate(['seller/home']);
+  }
+  reloadSeller() {
+    if (localStorage.getItem('seller')) {
+      this.authService.isSellerLoggedIn.next(true);
+      this.router.navigate(['seller/home']);
+    }
+  }
+  ngOnInit(): void {
+    this.reloadSeller();
   }
 }

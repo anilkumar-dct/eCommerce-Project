@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { userAuthGuardGuard } from './user-auth-guard-guard';
 
 export const routes: Routes = [
   {
@@ -20,6 +21,7 @@ export const routes: Routes = [
   {
     path: 'seller/home',
     loadComponent: () => import('./body/home/home').then((c) => c.Home),
+    canActivate: [userAuthGuardGuard],
   },
   {
     path: 'cart',

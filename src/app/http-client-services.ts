@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SignUpUserData } from './data';
+
 import { catchError, Observable } from 'rxjs';
 
 @Injectable({
