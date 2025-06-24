@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import {
   AbstractControl,
@@ -18,14 +19,17 @@ function confirmPassword(control: AbstractControl) {
 }
 @Component({
   selector: 'app-seller',
-  imports: [RouterLink, ReactiveFormsModule],
+  imports: [RouterLink, ReactiveFormsModule, NgIf],
   templateUrl: './seller.html',
   styleUrl: './seller.css',
 })
 export class Seller {
   form = new FormGroup({
     email: new FormControl('', {
-      validators: [Validators.required, Validators.email],
+      validators: [
+        Validators.required,
+        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
+      ],
     }),
     passwords: new FormGroup(
       {
@@ -43,6 +47,25 @@ export class Seller {
     }),
   });
   onSubmit() {
-    console.log(this.form.controls.name.value);
+    this.form.markAllAsTouched();
+    if (this.form.invalid) {
+      console.log('❌ Invalid form:');
+      for (const key in this.form.controls) {
+        const control = this.form.get(key);
+        if (control instanceof FormGroup) {
+          for (const subKey in control.controls) {
+            const subControl = control.get(subKey);
+            if (subControl?.errors)
+              console.log(`${subKey}:`, subControl.errors);
+          }
+          if (control.errors) console.log(`${key} group:`, control.errors);
+        } else if (control?.errors) {
+          console.log(`${key}:`, control.errors);
+        }
+      }
+      return;
+    }
+
+    console.log('✅ Form is valid:', this.form.value);
   }
 }

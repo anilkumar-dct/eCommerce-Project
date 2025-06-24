@@ -76,3 +76,7 @@ button:hover {
     flex-basis: 100%;
   }
 }
+.error small {
+  color: red;
+  font-size: 12px;
+}

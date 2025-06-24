@@ -1,1 +1,12 @@
-<p>login works!</p>
+<div class="login-container">
+  <h2>Login</h2>
+  <form>
+    <input type="email" placeholder="Email Address" />
+    <input type="password" placeholder="Password" />
+    <button type="submit">Login</button>
+    <p class="signup-link">
+      Don't have an account?
+      <a [routerLink]="['/seller']">Sign Up</a>
+    </p>
+  </form>
+</div>

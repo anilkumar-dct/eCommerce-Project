@@ -1,12 +1,21 @@
 <div class="signup-container">
   <h2>Create Account</h2>
-  <form [formGroup]="form">
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <input
       type="text"
       placeholder="Full Name"
       required
       formControlName="name"
     />
+
+    @if(form.get('name')?.touched&&form.get('name')?.invalid){
+    <div class="error">
+      @if (form.get('name')?.errors?.['required']) {
+      <small>Full Name is required.</small>
+      }
+    </div>
+    }
     <input
       type="email"
       placeholder="Email Address"
@@ -14,6 +23,15 @@
       formControlName="email"
     />
 
+    @if(form.get('email')?.touched&&form.get('email')?.invalid){
+    <div class="error">
+      @if (form.get('email')?.errors?.['required']) {
+      <small>Email Address is required.</small>
+      } @else if (form.get('email')?.errors?.['pattern']) {
+      <small>Invalid email address.</small>
+      }
+    </div>
+    }
     <div class="password-group" formGroupName="passwords">
       <input
         type="password"
@@ -21,15 +39,35 @@
         required
         formControlName="password"
       />
+      @if(form.controls['passwords'].get('password')?.touched&&form.controls['passwords'].get('password')?.invalid){
+      <div class="error">
+        @if (form.controls['passwords'].get('password')?.errors?.['required']) {
+        <small>Password is required.</small>
+        }
+      </div>
+      }
       <input
         type="password"
         placeholder="Confirm Password"
         required
         formControlName="confirmPassword"
       />
+      @if(form.controls['passwords'].get('confirmPassword')?.touched&&form.controls['passwords'].get('confirmPassword')?.invalid){
+      <div class="error">
+        @if
+        (form.controls['passwords'].get('confirmPassword')?.errors?.['required'])
+        {
+        <small>Confirm Password is required.</small>
+        } @if
+        (!form.controls['passwords'].get('confirmPassword')?.errors?.['required']
+        && form.controls['passwords'].errors?.['notSame']) {
+        <small>Passwords do not match.</small>
+        }
+      </div>
+      }
     </div>
 
-    <button type="reset" (click)="onSubmit()">Sign Up</button>
+    <button type="submit">Sign Up</button>
     <p class="login-link">
       Already have an account?
       <a routerLink="/login" routerLinkActive="router-link-active">Login</a>
