@@ -1,0 +1,40 @@
+{
+  "sellers": [
+    {
+      "id": "41b0",
+      "name": "anil",
+      "email": "anil@gmail.com",
+      "password": "abc@123"
+    },
+    {
+      "id": "c077",
+      "name": "rahul",
+      "email": "rahul@gmail.com",
+      "password": "rahul@123"
+    },
+    {
+      "id": "dc5c",
+      "name": "anil",
+      "email": "Test1@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": "321b",
+      "name": "anilyadav",
+      "email": "Test1@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": "b5ab",
+      "name": "anil",
+      "email": "Test1@gmail.com",
+      "password": "123456"
+    },
+    {
+      "id": "f79d",
+      "name": "test",
+      "email": "Test1@gmail.com",
+      "password": "123456"
+    }
+  ]
+}

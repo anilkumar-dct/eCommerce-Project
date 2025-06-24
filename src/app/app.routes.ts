@@ -18,6 +18,10 @@ export const routes: Routes = [
     loadComponent: () => import('./body/seller/seller').then((c) => c.Seller),
   },
   {
+    path: 'seller/home',
+    loadComponent: () => import('./body/home/home').then((c) => c.Home),
+  },
+  {
     path: 'cart',
     loadComponent: () => import('./body/cart/cart').then((c) => c.Cart),
   },

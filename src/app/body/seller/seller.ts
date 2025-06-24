@@ -1,5 +1,4 @@
-import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -7,7 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { SignUpUserData } from '../../data';
+import { HttpClientServices } from '../../http-client-services';
 
 function confirmPassword(control: AbstractControl) {
   const password = control.get('password');
@@ -19,11 +20,19 @@ function confirmPassword(control: AbstractControl) {
 }
 @Component({
   selector: 'app-seller',
-  imports: [RouterLink, ReactiveFormsModule, NgIf],
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './seller.html',
   styleUrl: './seller.css',
 })
 export class Seller {
+  sellerData: SignUpUserData = {
+    name: '',
+    email: '',
+    password: '',
+  };
+  constructor(private router: Router) {}
+
+  private httpService = inject(HttpClientServices);
   form = new FormGroup({
     email: new FormControl('', {
       validators: [
@@ -65,7 +74,11 @@ export class Seller {
       }
       return;
     }
-
-    console.log('✅ Form is valid:', this.form.value);
+    console.log('✅ Valid form:', this.form.value);
+    this.sellerData.name = this.form.value.name!;
+    this.sellerData.email = this.form.value.email!;
+    this.sellerData.password = this.form.controls['passwords'].value.password!;
+    this.httpService.createUser(this.sellerData).subscribe();
+    this.router.navigate(['seller/home']);
   }
 }
